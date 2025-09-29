@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Woody Alien{% endblock %}
+
+{% block content %}
+<h1 class="cosmic-title">Наши продукты</h1>
+
+<!-- Главный Swiper для продуктов -->
+<div class="swiper mainSwiper">
+    <div class="swiper-wrapper">
+        {% for product in products %}
+            <div class="swiper-slide">
+                <div class="product-card">
+                    <!-- Мини-слайдер для изображений продукта -->
+                    <div class="swiper productSwiper">
+                        <div class="swiper-wrapper">
+                            {% for img in product.get('image', []) %}
+                                <div class="swiper-slide">
+                                    <img src="{{ url_for('static', path='images/' + img) }}"
+                                         alt="{{ product.get('name', 'Без имени') }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Пагинация мини-слайдера -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                    <h2>{{ product.get('name', 'Без имени') }}</h2>
+                    <p>{{ product.get('description', '') }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Навигация главного слайдера -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</div>
+
+<style>
+body {
+    background: radial-gradient(circle at top, #0d0d2b, #1a1a3d, #000);
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+.cosmic-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 5px #7fffd4, 0 0 10px #00ffff;
+}
+
+.product-card {
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px rgba(0,255,255,0.3);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: 120px; /* фиксированная высота */
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #7fffd4;
+}
+
+.product-card p {
+    font-size: 0.9rem;
+    color: #cceeff;
+}
+
+/* Главный слайдер */
+.swiper.mainSwiper {
+    padding: 20px 0;
+}
+.swiper.mainSwiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+/* Мини-слайдер */
+.productSwiper {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 10px;
+}
+.productSwiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+</style>
+
+<script>
+  // Главный слайдер
+  const mainSwiper = new Swiper(".mainSwiper", {
+    slidesPerView: 3,
+    spaceBetween: 20,
+    loop: true,
+    centeredSlides: true,
+    pagination: {
+      el: ".mainSwiper .swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".mainSwiper .swiper-button-next",
+      prevEl: ".mainSwiper .swiper-button-prev",
+    },
+    breakpoints: {
+      320: { slidesPerView: 1 },
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    }
+  });
+
+  // Мини-слайдеры внутри карточек (ручное перелистывание)
+  document.querySelectorAll('.productSwiper').forEach((el) => {
+    new Swiper(el, {
+      slidesPerView: 1,
+      spaceBetween: 5,
+      loop: false,
+      pagination: {
+        el: el.querySelector('.swiper-pagination'),
+        clickable: true
+      },
+    });
+  });
+</script>
+{% endblock %}
