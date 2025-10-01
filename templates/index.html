@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Главная - Woody Alien{% endblock %}
+
+{% block content %}
+<h1 class="cosmic-title">Наши продукты</h1>
+
+<div class="product-grid">
+  {% for product in products %}
+    <div class="product-card">
+      <a href="/shop/{{ product.id }}">
+        <img src="{{ url_for('static', path='images/' + product.get_images()[0]) }}"
+             alt="{{ product.name }}">
+      </a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,78 +1,152 @@
-/* Базовые стили */
-:root {
-    --header-height: 80px; /* Увеличил высоту хедера с учетом padding */
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url('/i.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    color: white;
-    line-height: 1.6;
-    min-height: 200vh;
-}
-
-#header {
-    height: var(--header-height);
-    background-color: rgba(0, 0, 0, 0.3);
-    color: white;
-    padding: 1rem;
-    text-align: center;
+/* --- Хедер --- */
+header {
     position: fixed;
-    width: 100%;
     top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+    transition: background 0.3s ease;
     z-index: 1000;
-    transition: background-color 0.3s ease;
-    box-sizing: border-box; /* Важно! Чтобы padding не увеличивал высоту */
 }
 
-main {
-    padding-top: calc(var(--header-height) + 40px); /* Основной отступ */
+header.scrolled {
+    background: rgba(0,0,0,0.85);
+}
+
+nav {
     text-align: center;
 }
 
-.content {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 800px;
-    margin: 0 auto; /* Центрирование */
+nav a {
+    color: #aaa;
+    margin: 0 15px;
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
-/* Кнопка "Наверх" */
+nav a.active, nav a:hover {
+    color: #00ffff;
+}
+
+/* --- Отступ для контента (чтобы хедер не перекрывал) --- */
+main {
+    padding: 100px 20px 20px;
+}
+
+/* --- Кнопка "наверх" --- */
 #scrollToTopBtn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    background-color: #333;
-    color: white;
+    bottom: 30px;
+    right: 30px;
+    background: #00ffff;
+    color: #000;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#scrollToTopBtn.visible {
-    opacity: 1;
+    display: none;
+    box-shadow: 0 0 10px rgba(0,255,255,0.5);
+    transition: opacity 0.3s ease, transform 0.2s;
 }
 
 #scrollToTopBtn:hover {
-    background-color: #555;
+    transform: scale(1.1);
 }
 
-/* Медиазапросы */
-@media (max-width: 768px) {
-    :root {
-        --header-height: 60px;
-    }
+.product-card h2 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #7fffd4;
+}
 
-    .content {
-        padding: 1rem;
-    }
+.product-card p {
+  font-size: 0.9rem;
+  color: #cceeff;
+}
+
+/* --- Страница товара --- */
+.product-title {
+  text-align: center;
+  font-size: 2rem;
+  margin: 20px 0;
+  text-shadow: 0 0 5px #7fffd4, 0 0 15px #00ffff;
+}
+
+.productSwiper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+.productSwiper img {
+  width: 100%;
+  height: 350px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.product-description {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* --- Сетка на главной --- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+.product-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 12px rgba(0,255,255,0.3);
+}
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+/* --- Сетка в магазине --- */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin: 30px auto;
+  max-width: 1000px;
+}
+.shop-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.shop-card img {
+  width: 100%;
+  height: 300px;   /* больше, чем на главной */
+  object-fit: contain; /* сохраняем пропорции */
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+.shop-card h2 {
+  margin: 10px 0;
+  color: #7fffd4;
 }
