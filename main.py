@@ -1,30 +1,48 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from sqlalchemy.orm import Session
+from db import SessionLocal, init_db, Product
 
 app = FastAPI()
 
-# Подключаем папку с шаблонами
 templates = Jinja2Templates(directory="templates")
-
-# Подключаем статические файлы
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Пример продукта (можно заменить на данные из базы)
-products = [
-    {"name": "Инопланетная лампа", "image": ["clock1.jpg", "clock2.jpg"], "description": "Стильная лампа для вашего дома"},
-    {"name": "Космическое кресло", "image": ["candlestick1.jpg", "candlestick2.jpg", "candlestick3.jpg"], "description": "Комфортное кресло из другой галактики"},
-    {"name": "Галактическая ваза", "image": ["sculpture1.jpg"], "description": "Украшение для стола и полки"}
-]
+init_db()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 @app.get("/")
-async def home(request: Request):
-    return templates.TemplateResponse(
-        "index.html",
-        {
-            "request": request,
-            "products": products,
-            "active_page": "index"  # для подсветки меню
-        }
-    )
+def home(request: Request, db: Session = Depends(get_db)):
+    products = db.query(Product).all()
+    return templates.TemplateResponse("index.html", {"request": request, "products": products, "active_page": "index"})
+
+
+@app.get("/about")
+def about(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request, "active_page": "about"})
+
+
+@app.get("/blog")
+def blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request, "active_page": "blog"})
+
+
+@app.get("/shop")
+def shop(request: Request, db: Session = Depends(get_db)):
+    products = db.query(Product).all()
+    return templates.TemplateResponse("shop.html", {"request": request, "products": products, "active_page": "shop"})
+
+
+@app.get("/shop/{product_id}")
+def product_page(product_id: int, request: Request, db: Session = Depends(get_db)):
+    product = db.query(Product).get(product_id)
+    return templates.TemplateResponse("product.html", {"request": request, "product": product, "active_page": "shop"})

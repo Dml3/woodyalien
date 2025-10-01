@@ -1,45 +1,17 @@
 {% extends "base.html" %}
-{% block title %}Магазин — Woody Alien{% endblock %}
+{% block title %}Магазин - Woody Alien{% endblock %}
 
 {% block content %}
-<section class="shop">
-  <h1>Наши изделия</h1>
-  <div class="products-grid">
-    {% for product in products %}
-      <div class="product-card">
-        <!-- Галерея -->
-        <div class="swiper product-swiper">
-          <div class="swiper-wrapper">
-            {% for image in product.images %}
-              <div class="swiper-slide">
-                <img src="{{ url_for('static', path='images/' + image) }}" alt="{{ product.name }}">
-              </div>
-            {% endfor %}
-          </div>
-          <!-- Стрелки -->
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-        </div>
-        <!-- Текст -->
-        <h2>{{ product.name }}</h2>
-        <p>{{ product.description }}</p>
-      </div>
-    {% endfor %}
-  </div>
-</section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.product-swiper').forEach(swiperEl => {
-      new Swiper(swiperEl, {
-        loop: true,
-        navigation: {
-          nextEl: swiperEl.querySelector('.swiper-button-next'),
-          prevEl: swiperEl.querySelector('.swiper-button-prev'),
-        },
-        slidesPerView: 1,
-      });
-    });
-  });
-</script>
+<h1>Наши товары</h1>
+<div class="shop-grid">
+  {% for product in products %}
+    <div class="shop-card">
+      <a href="/shop/{{ product.id }}">
+        <img src="{{ url_for('static', path='images/' + product.get_images()[0]) }}" alt="{{ product.name }}">
+      </a>
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description[:100] }}{% if product.description|length > 100 %}…{% endif %}</p>
+    </div>
+  {% endfor %}
+</div>
 {% endblock %}

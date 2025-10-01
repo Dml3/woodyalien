@@ -1,55 +1,51 @@
-window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    const scrollY = window.scrollY;
-
-    if (scrollY > 100) {
-        header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+document.addEventListener("DOMContentLoaded", () => {
+  // --- затемнение хедера при скролле ---
+  const header = document.getElementById("header");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      header.classList.add("scrolled");
     } else {
-        header.style.backgroundColor = `rgba(0, 0, 0, ${0.3 + scrollY * 0.007})`;
+      header.classList.remove("scrolled");
     }
+  });
 
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-    if (scrollY > 300) {
-        scrollToTopBtn.classList.add('visible');
+  // --- кнопка "наверх" ---
+  const scrollBtn = document.getElementById("scrollToTopBtn");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      scrollBtn.style.display = "block";
     } else {
-        scrollToTopBtn.classList.remove('visible');
+      scrollBtn.style.display = "none";
     }
-});
+  });
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-document.getElementById('scrollToTopBtn').addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Главный слайдер
-const mainSwiper = new Swiper(".mainSwiper", {
-    slidesPerView: 3,
-    spaceBetween: 20,
-    loop: true,
-    centeredSlides: true,
-    pagination: {
-        el: ".mainSwiper .swiper-pagination",
+  // --- Swiper на странице продукта ---
+  const productSwiper = document.querySelector(".productSwiper");
+  if (productSwiper) {
+    new Swiper(".productSwiper", {
+      slidesPerView: 1,
+      loop: true,
+      pagination: {
+        el: ".productSwiper .swiper-pagination",
         clickable: true,
-    },
-    navigation: {
-        nextEl: ".mainSwiper .swiper-button-next",
-        prevEl: ".mainSwiper .swiper-button-prev",
-    },
-    breakpoints: {
-        320: { slidesPerView: 1 },
-        640: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-    }
-});
-
-// Мини-слайдеры внутри карточек
-document.querySelectorAll('.productSwiper').forEach((el) => {
-    new Swiper(el, {
-        slidesPerView: 1,
-        spaceBetween: 5,
-        loop: false, // без бесконечного цикла
-        pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+      },
     });
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  // Слайдер только на странице товара
+  const productSwiper = document.querySelector(".productSwiper");
+  if (productSwiper) {
+    new Swiper(".productSwiper", {
+      slidesPerView: 1,
+      loop: true,
+      pagination: {
+        el: ".productSwiper .swiper-pagination",
+        clickable: true,
+      },
+    });
+  }
 });

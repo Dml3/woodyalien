@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name if product else 'Товар не найден' }} - Woody Alien{% endblock %}
+{% block content %}
+{% if product %}
+  <h1 class="product-title">{{ product.name }}</h1>
+
+  <div class="swiper productSwiper">
+    <div class="swiper-wrapper">
+      {% for img in product.get_images() %}
+        <div class="swiper-slide">
+          <img src="{{ url_for('static', path='images/' + img) }}" alt="{{ product.name }}">
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <p class="product-description">{{ product.description }}</p>
+{% else %}
+  <p>Товар не найден.</p>
+{% endif %}
+{% endblock %}
