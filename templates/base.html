@@ -9,13 +9,24 @@
 <body>
     <!-- Хедер -->
     <header id="header">
-        <nav>
-            <a href="/" class="{% if active_page=='index' %}active{% endif %}">Главная</a>
-            <a href="/about" class="{% if active_page=='about' %}active{% endif %}">О нас</a>
-            <a href="/blog" class="{% if active_page=='blog' %}active{% endif %}">Блог</a>
-            <a href="/shop" class="{% if active_page=='shop' %}active{% endif %}">Магазин</a>
-        </nav>
-    </header>
+    <div class="header-left">
+        <img src="{{ url_for('static', path='images/logo.png') }}" class="logo">
+    </div>
+
+    <nav>
+    <a href="#home">Главная</a>
+    <a href="#about">О нас</a>
+    <a href="#blog">Блог</a>
+    <a href="#shop">Магазин</a>
+</nav>
+
+    <div class="header-right">
+        <a href="#" class="social-btn"><img src="/static/icons/vk.svg"></a>
+        <a href="#" class="social-btn"><img src="/static/icons/tg.svg"></a>
+        <a href="#" class="social-btn"><img src="/static/icons/inst.svg"></a>
+    </div>
+</header>
+
 
     <!-- Контент -->
     <main>
@@ -25,6 +36,9 @@
     <!-- Футер -->
     <footer>
         <p>© 2025 Woody Alien. Инопланетный декор для земных интерьеров.</p>
+        <div class="socials">
+            <a href="#">VK</a> | <a href="#">Telegram</a> | <a href="#">Instagram</a>
+        </div>
     </footer>
 
     <!-- Кнопка наверх -->

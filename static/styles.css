@@ -1,152 +1,254 @@
-/* --- Хедер --- */
+/* --- Общие стили --- */
+body {
+  background: white;
+  color: #000;
+  font-family: 'Arial', sans-serif;
+  scroll-behavior: smooth;
+  margin: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 110px 20px 40px;
+    text-align: center;           /* ← Центрирование текста */
+}
+
+
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+/* === Хедер === */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 15px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(6px);
-    transition: background 0.3s ease;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 1);   /* полностью белый */
+    transition: background 0.4s ease,
+                color 0.3s ease,
+                transform 0.3s ease,
+                opacity 0.3s ease;        /* плавное появление */
     z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-header.scrolled {
-    background: rgba(0,0,0,0.85);
+.header-left,
+.header-right {
+    width: 260px; /* ← регулируешь расстояние от центра */
+    display: flex;
+    align-items: center;
+    gap: 12px;    /* если там несколько иконок */
 }
 
 nav {
-    text-align: center;
+    flex: 1;
+    display: flex;
+    justify-content: center;   /* центрируем вкладки */
+    gap: 35px;                 /* ← расстояние между вкладками */
 }
 
-nav a {
-    color: #aaa;
+/* Хедер в момент скролла */
+header.scrolled {
+    background: rgba(0, 0, 0, 0.75);       /* ← Вот тут фон полупрозрачный! */
+    opacity: 0.95;                         /* эффект проявления */
+    transform: translateY(0);              /* фикс для мобилок */
+}
+
+
+/* Цвет ссылок по умолчанию */
+header nav a {
+    color: #222;                      /* Почти чёрный */
     margin: 0 15px;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
 }
 
-nav a.active, nav a:hover {
-    color: #00ffff;
+/* При наведении (не скролл) */
+header nav a:hover {
+    color: #666;                      /* Светло-серый */
 }
 
-/* --- Отступ для контента (чтобы хедер не перекрывал) --- */
-main {
-    padding: 100px 20px 20px;
+/* Активная вкладка (по твоей логике — 40% затемнения) */
+header nav a.active {
+    color: #555;
 }
 
-/* --- Кнопка "наверх" --- */
+
+/* Ссылки при скролле — белые */
+header.scrolled nav a {
+    color: #ddd;
+}
+
+/* Наведение при скролле */
+header.scrolled nav a:hover {
+    color: #fff;                      /* Чисто белый */
+}
+
+/* Активная вкладка при скролле */
+header.scrolled nav a.active {
+    color: #fff;
+}
+
+/* --- Кнопка наверх --- */
 #scrollToTopBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #00ffff;
-    color: #000;
-    border: none;
-    border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #00ffff;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 0 10px rgba(0,255,255,0.5);
+  transition: opacity 0.3s ease, transform 0.2s;
+}
+#scrollToTopBtn:hover {
+  transform: scale(1.1);
+}
+
+.logo {
     width: 45px;
     height: 45px;
-    font-size: 20px;
-    cursor: pointer;
-    display: none;
-    box-shadow: 0 0 10px rgba(0,255,255,0.5);
-    transition: opacity 0.3s ease, transform 0.2s;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-#scrollToTopBtn:hover {
+/* Кнопки соцсетей */
+.social-btn img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 4px;
+    background: #eee;
+    transition: transform 0.2s ease;
+}
+
+.social-btn:hover img {
     transform: scale(1.1);
 }
 
-.product-card h2 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  color: #7fffd4;
-}
 
-.product-card p {
-  font-size: 0.9rem;
-  color: #cceeff;
-}
-
-/* --- Страница товара --- */
-.product-title {
+/* --- Заголовки --- */
+.cosmic-title {
   text-align: center;
   font-size: 2rem;
-  margin: 20px 0;
-  text-shadow: 0 0 5px #7fffd4, 0 0 15px #00ffff;
+  margin-bottom: 30px;
 }
 
-.productSwiper {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto 20px;
-}
-.productSwiper img {
-  width: 100%;
-  height: 350px;
-  object-fit: contain;
-  border-radius: 12px;
-}
-
-.product-description {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 1rem;
-  line-height: 1.5;
-  text-align: center;
-}
-
-/* --- Сетка на главной --- */
+/* --- Сетки --- */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
-  margin: 30px auto;
-  max-width: 1200px;
 }
 
-.product-card {
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* --- Карточки --- */
+.product-card, .shop-card {
   background: rgba(255,255,255,0.05);
   border-radius: 12px;
   padding: 10px;
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-.product-card:hover {
+
+.product-card:hover, .shop-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 12px rgba(0,255,255,0.3);
 }
 
-.product-card img {
+.product-card img, .shop-card img {
   width: 100%;
   height: 220px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-
-/* --- Сетка в магазине --- */
-.shop-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  margin: 30px auto;
-  max-width: 1000px;
-}
-.shop-card {
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
-  padding: 20px;
+/* --- Футер --- */
+footer {
   text-align: center;
+  padding: 20px 0;
+  background: rgba(255, 255, 255, 0.05);
 }
-.shop-card img {
-  width: 100%;
-  height: 300px;   /* больше, чем на главной */
-  object-fit: contain; /* сохраняем пропорции */
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-.shop-card h2 {
-  margin: 10px 0;
+footer .socials a {
   color: #7fffd4;
+  text-decoration: none;
+  margin: 0 5px;
 }
+
+/* --- Адаптив --- */
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 12px;
+    }
+
+    nav a {
+        margin: 0 8px;
+    }
+
+    .header-right {
+        display: none;  /* соцсети скрываем — слишком мелко */
+    }
+
+    .logo {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* Фикс прыгания: запрещаем изменение высоты */
+header,
+header.scrolled {
+    min-height: 60px;     /* одинаковая высота во всех состояниях */
+}
+
+@media (max-width: 768px) {
+    .header-left,
+    .header-right {
+        width: 60px;
+    }
+
+    nav {
+        gap: 18px;
+    }
+}
+
+

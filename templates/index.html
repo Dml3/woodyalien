@@ -1,17 +1,47 @@
 {% extends "base.html" %}
-{% block title %}Главная - Woody Alien{% endblock %}
-
+{% block title %}Woody Alien{% endblock %}
 {% block content %}
-<h1 class="cosmic-title">Наши продукты</h1>
 
-<div class="product-grid">
-  {% for product in products %}
-    <div class="product-card">
-      <a href="/shop/{{ product.id }}">
-        <img src="{{ url_for('static', path='images/' + product.get_images()[0]) }}"
-             alt="{{ product.name }}">
-      </a>
-    </div>
-  {% endfor %}
-</div>
+<!-- Главная секция -->
+<section id="home">
+  <h1 class="cosmic-title">Наши продукты</h1>
+  <div class="product-grid">
+    {% for product in products %}
+      <div class="product-card">
+        <a href="#shop">
+          <img src="{{ url_for('static', path='images/' + product.get_images()[0]) }}" alt="{{ product.name }}">
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- О нас -->
+<section id="about">
+  <h1 class="cosmic-title">О нас</h1>
+  <p>Мы создаём уникальный инопланетный декор для вашего дома. Наши изделия вдохновлены космосом и мистикой неизведанного.</p>
+</section>
+
+<!-- Блог -->
+<section id="blog">
+  <h1 class="cosmic-title">Блог</h1>
+  <p>Читайте истории о наших космических дизайнах, идеях и путешествиях в поисках вдохновения.</p>
+</section>
+
+<!-- Магазин -->
+<section id="shop">
+  <h1 class="cosmic-title">Магазин</h1>
+  <div class="shop-grid">
+    {% for product in products %}
+      <div class="shop-card">
+        <a href="/shop/{{ product.id }}">
+          <img src="{{ url_for('static', path='images/' + product.get_images()[0]) }}" alt="{{ product.name }}">
+        </a>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description[:100] }}{% if product.description|length > 100 %}…{% endif %}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
 {% endblock %}
