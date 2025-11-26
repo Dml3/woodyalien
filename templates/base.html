@@ -10,20 +10,27 @@
     <!-- Хедер -->
     <header id="header">
     <div class="header-left">
-        <img src="{{ url_for('static', path='images/logo.png') }}" class="logo">
-    </div>
+    <a href="#top">
+        <img class="logo" src="{{ url_for('static', path='images/logo.png') }}" alt="Лого">
+    </a>
+</div>
 
     <nav>
-    <a href="#home">Главная</a>
     <a href="#about">О нас</a>
     <a href="#blog">Блог</a>
     <a href="#shop">Магазин</a>
 </nav>
 
     <div class="header-right">
-        <a href="#" class="social-btn"><img src="/static/icons/vk.svg"></a>
-        <a href="#" class="social-btn"><img src="/static/icons/tg.svg"></a>
-        <a href="#" class="social-btn"><img src="/static/icons/inst.svg"></a>
+        <a class="social-btn" href="#">
+            <img src="{{ url_for('static', path='images/icons/vk.png') }}" alt="">
+        </a>
+        <a class="social-btn" href="#">
+            <img src="{{ url_for('static', path='images/icons/tg.png') }}" alt="">
+        </a>
+        <a class="social-btn" href="#">
+            <img src="{{ url_for('static', path='images/icons/inst.png') }}" alt="">
+        </a>
     </div>
 </header>
 

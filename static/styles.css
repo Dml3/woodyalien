@@ -22,13 +22,12 @@ section {
   text-align: center;
 }
 
-/* === Хедер === */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 12px 20px;
+    padding: 12px 40px;
     background: rgba(255, 255, 255, 1);   /* полностью белый */
     transition: background 0.4s ease,
                 color 0.3s ease,
@@ -43,22 +42,22 @@ header {
 
 .header-left,
 .header-right {
-    width: 260px; /* ← регулируешь расстояние от центра */
+    width: 330px; /* ← расстояние от центра */
     display: flex;
     align-items: center;
-    gap: 12px;    /* если там несколько иконок */
+    gap: 8px;    /* расстояние между иконок */
 }
 
 nav {
     flex: 1;
     display: flex;
     justify-content: center;   /* центрируем вкладки */
-    gap: 35px;                 /* ← расстояние между вкладками */
+    gap: 45px;                 /* ← расстояние между вкладками */
 }
 
 /* Хедер в момент скролла */
 header.scrolled {
-    background: rgba(0, 0, 0, 0.75);       /* ← Вот тут фон полупрозрачный! */
+    background: rgba(0, 0, 0, 0.75);       /* ← фон полупрозрачный */
     opacity: 0.95;                         /* эффект проявления */
     transform: translateY(0);              /* фикс для мобилок */
 }
@@ -69,6 +68,10 @@ header nav a {
     color: #222;                      /* Почти чёрный */
     margin: 0 15px;
     text-decoration: none;
+    font-size: 18px;                /* крупнее */
+    font-weight: 600;               /* жирнее */
+    letter-spacing: 0.5px;          /* легкий spacing */
+
     transition: color 0.2s ease;
 }
 
@@ -77,7 +80,7 @@ header nav a:hover {
     color: #666;                      /* Светло-серый */
 }
 
-/* Активная вкладка (по твоей логике — 40% затемнения) */
+/* Активная вкладка (40% затемнения) */
 header nav a.active {
     color: #555;
 }
@@ -120,10 +123,10 @@ header.scrolled nav a.active {
 }
 
 .logo {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    object-fit: cover;
+    align-items: center;
 }
 
 /* Кнопки соцсетей */
@@ -225,7 +228,7 @@ footer .socials a {
     }
 
     .header-right {
-        display: none;  /* соцсети скрываем — слишком мелко */
+        display: none;  /* соцсети скрываем */
     }
 
     .logo {
@@ -234,7 +237,7 @@ footer .socials a {
     }
 }
 
-/* Фикс прыгания: запрещаем изменение высоты */
+/* запрещаем изменение высоты */
 header,
 header.scrolled {
     min-height: 60px;     /* одинаковая высота во всех состояниях */
