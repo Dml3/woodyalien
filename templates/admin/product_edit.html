@@ -1,0 +1,38 @@
+{% extends "admin/base_admin.html" %}
+{% block content %}
+
+<h1>Редактировать товар</h1>
+
+<form action="/admin/products/edit/{{ product.id }}" method="post" enctype="multipart/form-data" class="admin-form">
+
+  <label>Название</label>
+  <input type="text" name="title" value="{{ product.title }}" required>
+
+  <label>Описание</label>
+  <textarea name="description" rows="4">{{ product.description }}</textarea>
+
+  <label>Добавить изображения</label>
+  <input type="file" name="images" multiple accept="image/*">
+
+  <button type="submit" class="admin-btn">Сохранить</button>
+</form>
+
+<h2>Изображения товара</h2>
+
+<div class="media-grid">
+  {% for m in product.media %}
+    <div class="media-item">
+      <img src="/static/uploads/products/{{ m.filename }}" width="120">
+
+      <form action="/admin/products/{{ product.id }}/media/{{ m.id }}/delete"
+            method="post"
+            onsubmit="return confirm('Удалить изображение?');">
+        <button type="submit" class="delete-btn">Удалить</button>
+      </form>
+    </div>
+  {% endfor %}
+</div>
+
+<a href="/admin/products" class="back-btn">← Назад</a>
+
+{% endblock %}
