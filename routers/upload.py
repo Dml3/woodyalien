@@ -14,10 +14,8 @@ async def upload_product_image(file: UploadFile = File(...)):
 
     filepath = os.path.join(UPLOAD_FOLDER, filename)
 
-    # создаём папку если нет
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-    # сохраняем файл
     with open(filepath, "wb") as buffer:
         buffer.write(await file.read())
 

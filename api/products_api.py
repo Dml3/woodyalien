@@ -39,7 +39,6 @@ def create_product(data: ProductCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(product)
 
-    # добавляем медиа-записи
     for filename in data.media:
         media = ProductMedia(filename=filename, product_id=product.id)
         db.add(media)

@@ -7,7 +7,7 @@ from db import SessionLocal, engine, Base
 from models.product import Product
 from models.product_media import ProductMedia
 
-from routers import admin
+from routers import admin, blog
 from api import products_api
 
 app = FastAPI()
@@ -43,3 +43,4 @@ def home(request: Request, db: Session = Depends(get_db)):
 
 app.include_router(admin.router)
 app.include_router(products_api.router)
+app.include_router(blog.router)

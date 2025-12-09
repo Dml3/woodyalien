@@ -9,11 +9,16 @@
     {% for product in products %}
       <div class="product-card">
         <a href="#shop">
-          <img src="{{ url_for('static', path='images/' + product.get_images()[0]) }}" alt="{{ product.name }}">
+          {% if product.media %}
+          <img src="/static/uploads/products/{{ product.media[0].filename }}" alt="{{ product.title }}">
+          {% else %}
+          <img src="/static/default.jpg" alt="no image">
+          {% endif %}
         </a>
       </div>
     {% endfor %}
-  </div>
+</div>
+
 </section>
 
 <!-- О нас -->
@@ -35,13 +40,18 @@
     {% for product in products %}
       <div class="shop-card">
         <a href="/shop/{{ product.id }}">
-          <img src="{{ url_for('static', path='images/' + product.get_images()[0]) }}" alt="{{ product.name }}">
+            {% if product.media %}
+            <img src="/static/uploads/products/{{ product.media[0].filename }}" alt="{{ product.title }}">
+            {% else %}
+            <img src="/static/default.jpg" alt="no image">
+            {% endif %}
         </a>
-        <h2>{{ product.name }}</h2>
+        <h2>{{ product.product_name }}</h2>
         <p>{{ product.description[:100] }}{% if product.description|length > 100 %}…{% endif %}</p>
       </div>
     {% endfor %}
-  </div>
+</div>
+
 </section>
 
 {% endblock %}

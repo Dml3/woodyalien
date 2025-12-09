@@ -1,0 +1,23 @@
+{% extends "admin/base_admin.html" %}
+{% block content %}
+<h1>Создать пост</h1>
+
+<form action="/admin/blog/create" method="post" enctype="multipart/form-data" class="admin-form">
+  <label>Заголовок</label>
+  <input type="text" name="title" required>
+
+  <label>Slug (опционально)</label>
+  <input type="text" name="slug">
+
+  <label>Краткое описание</label>
+  <textarea name="excerpt" rows="3"></textarea>
+
+  <label>Контент</label>
+  <textarea name="content" rows="8"></textarea>
+
+  <label>Загрузить изображения</label>
+  <input type="file" name="images" multiple accept="image/*">
+
+  <button type="submit" class="admin-btn">Создать</button>
+</form>
+{% endblock %}
